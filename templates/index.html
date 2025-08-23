@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flask Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .box { border: 1px solid #ccc; padding: 20px; margin: 10px 0; width: 300px; }
+    img { max-width: 100%; margin-top: 10px; }
+    .result { margin-top: 10px; color: green; }
+  </style>
+</head>
+<body>
+  <h2>Animal Selector</h2>
+  <div class="box">
+    <label><input type="checkbox" name="animal" value="cat"> Cat</label><br>
+    <label><input type="checkbox" name="animal" value="dog"> Dog</label><br>
+    <label><input type="checkbox" name="animal" value="elephant"> Elephant</label><br>
+    <div id="animal-image"></div>
+  </div>
+
+  <h2>File Upload</h2>
+  <div class="box">
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload</button>
+    <div class="result" id="fileResult"></div>
+  </div>
+
+  <script>
+    // Handle checkbox selection
+    const checkboxes = document.querySelectorAll('input[name="animal"]');
+    const imageDiv = document.getElementById("animal-image");
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener("change", function() {
+        checkboxes.forEach(box => { if (box !== cb) box.checked = false; });
+        if (cb.checked) {
+          imageDiv.innerHTML = `<img src="/static/${cb.value}.jpg" alt="${cb.value}">`;
+        } else {
+          imageDiv.innerHTML = "";
+        }
+      });
+    });
+
+    // Handle file upload
+    function uploadFile() {
+      const fileInput = document.getElementById("fileInput");
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Please select a file first!");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      fetch("/upload", {
+        method: "POST",
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          document.getElementById("fileResult").innerText = data.error;
+        } else {
+          document.getElementById("fileResult").innerText =
+            `Name: ${data.name}, Size: ${data.size} bytes, Type: ${data.type}`;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

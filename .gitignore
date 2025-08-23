@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploads (don't commit user files)
+uploads/
+
+# IDE/editor configs
+.vscode/
+.idea/
+*.swp
+
+# Environment variables
+.env
