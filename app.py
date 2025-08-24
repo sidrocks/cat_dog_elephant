@@ -11,6 +11,9 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 def index():
     return render_template("index.html")
 
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True
+
 @app.route("/upload", methods=["POST"])
 def upload_file():
     if "file" not in request.files:
