@@ -14,7 +14,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Configure Gemini API
 #GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-GEMINI_API_KEY = 'AIzaSyA0lHnwRoypiyTJ2KpDE8TVCLgGamugG2g'
+GEMINI_API_KEY = 'EnterGoogleAPIKey'
 if GEMINI_API_KEY:
     genai.configure(api_key=GEMINI_API_KEY)
     model = genai.GenerativeModel('gemini-2.5-flash')
