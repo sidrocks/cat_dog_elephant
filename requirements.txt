@@ -4,4 +4,5 @@ werkzeug
 click
 itsdangerous
 jinja2
+google-generativeai
 
